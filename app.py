@@ -7,7 +7,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
-MONGO_URI = os.environ.get("MONGO_URI")
+
 
 app.config["MONGO_DBNAME"] = "task_manager"
 app.config["MONGO_URI"] = os.environ.get('MONGO_URI') 
