@@ -3,18 +3,55 @@
 <h3>Add Task</h3>
 <div class="row">
   <form class="col s12">
-    <div class="row">
-      <div class="input-field col s6">
-        <i class="material-icons prefix">account_circle</i>
-        <input id="icon_prefix" type="text" class="validate" />
-        <label for="icon_prefix">First Name</label>
+   <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">poll</i>
+      <select id="category" name="category_name">
+        <option value="" disabled selected>Choose category</option>
+        {%for cat in categories%}
+        <!-- its the value behind the scences is the data that will be submitted to the form not what the user will see -->
+        <option value="{{cat.category_name}}">{{cat.category_name}}</option>
+        {%endfor%}
+      </select>
+<label>Task Category</label>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
+  </div>    
+
+     <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">assignment</i>
+        <input id="task_name" name ="task_name" type="text" class="validate" />
+        <label for="icon_prefix">task name</label>
+       
       </div>
-      <div class="input-field col s6">
-        <i class="material-icons prefix">phone</i>
-        <input id="icon_telephone" type="tel" class="validate" />
-        <label for="icon_telephone">Telephone</label>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">subject</i>
+        <textarea id="task_description" name="task_description"   class="materialize-textarea" ></textarea>
+        <!-- Switch -->
+  <div class="switch">
+    <label>
+      <input type="checkbox" name="is_urgent" id ="is_urgent">
+      <span class="lever"></span>
+     Is Urgent 
+    </label>
+  </div>
+        <label for="icon_telephone">Task Description</label>
       </div>
     </div>
   </form>
+</div>
+<div class="row" id="matfix">
+  <div class="input-field col s12">
+    <i class="material-icons prefix"></i>
+    <input id="due_date" name ="due_date" type="text" class="datepicker" />
+    <label for="icon_prefix">Due Date</label>
+  </div>
+</div>
 </div>
 {% endblock %}
