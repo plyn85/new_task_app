@@ -20,14 +20,18 @@ def index():
   return redirect(url_for("add_task"))
 @app.route('/get_tasks')
 def get_tasks():
+  # this aims back at the tasks html and page and the mongo db database
+# we use the find function with mongo db to fetch our tasks
     return render_template("tasks.html",
                            tasks=mongo.db.tasks.find())
 
 
 @app.route('/add_task')
+# this aims back at the addtask html and page and the mongo db database
+# we use the find function with mongo db to fetch our categories
 def add_task():
     return render_template('addtask.html',
-                           categories=mongo.db.categories.find())
+                            categories=mongo.db.categories.find() 
 
 
 @app.route('/insert_task', methods=['POST'])

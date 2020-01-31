@@ -1,26 +1,40 @@
 {% extends 'base.html' %} {% block content %}
 <h3>Add Task</h3>
+
+<!-- row below which wraps the entire form section -->
 <div class="row">
+  <!-- form section-->
   <form action="{{ url_for('insert_task') }}" method="POST" class="col s12">
-    <div class="row">
+    <!--task category section -->
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">poll</i>
           <select id="category" name="category_name">
+            <!-- disabled selected element will be dispalyed outside of for loop 
+              as a visual clue from whats expected from the user -->
             <option value="" disabled selected>Choose Category</option>
+           <!-- for loop will display as many categories are there are in the
+            mongo db datbase in this case 3 this know as conditional rendering
+          only one option is needed to dispaly these categorys -->
             {% for cat in categories %}
+            <!-- the same peice of data will be used to display the catogery name in the value and the listing 
+            In this case the catogories from the mongo db data base
+          the value behind the sceens is the value that will be submitted to the form not what the user will see -->
             <option value="{{cat.category_name}}">{{cat.category_name}}</option>
             {% endfor %}
           </select>
           <label>Task Category</label>
         </div>
       </div>
+      <!-- end task category section -->
+      <!-- task name section -->
       <div class="input-field col s12">
         <i class="material-icons prefix">assignment</i>
         <input id="task_name" name="task_name" type="text" />
         <label for="icon_prefix">Task Name</label>
-      </div>
+      </div >
     </div>
+    <!-- task description section -->
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">subject</i>
@@ -32,6 +46,7 @@
         <label for="icon_telephone">Task Description</label>
       </div>
     </div>
+    <!-- end task description section -->
     <div class="row" id="matfix">
       <div class="input-field col s12">
         <i class="material-icons prefix">today</i>
@@ -39,6 +54,8 @@
         <label for="icon_prefix">Due Date</label>
       </div>
     </div>
+    <!-- end task description section -->
+    <!--is urgent section -->
     <div class="row">
       <div class="switch">
         <label>
@@ -48,12 +65,15 @@
         </label>
       </div>
     </div>
+   <!-- end is urgent section -->
+   <!-- submit button section -->
     <div class="row">
       <button class="btn waves-effect waves-light" type="submit" name="action">
         Add Task
         <i class="material-icons right">playlist_add</i>
       </button>
     </div>
+    <!-- end submit section -->
   </form>
 </div>
 
