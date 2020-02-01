@@ -18,8 +18,6 @@ mongo = PyMongo(app)
 @app.route('/')
 def index():
     return redirect(url_for("add_task"))
-
-
 @app.route('/get_tasks')
 def get_tasks():
     # this aims back at the tasks html and page and the mongo db database
