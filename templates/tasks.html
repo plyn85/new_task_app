@@ -1,8 +1,13 @@
+<!-- the add task accordian is rendered on this page an the different 
+  tasks collection catogries are rendered from mongo db -->
 {% extends 'base.html' %} {% block content %}
+<!-- whats happening here is a list item for every record returned, 
+  or every document returned, from the database. -->
 <ul class="collapsible">
   {% for task in tasks %}
   <li>
     <div class="collapsible-header">
+      
       <div class=" task_header col s9">
         <i class="material-icons">expand_more</i> {{task.task_name}} -
         {{task.due_date}}
