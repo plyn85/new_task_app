@@ -1,3 +1,4 @@
+# from bson.object import ObjectId
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 from flask import Flask, render_template, redirect, request, url_for
@@ -5,7 +6,9 @@ import os
 from os import path
 if path.exists("env.py"):
     import env
-
+    # bson  is used to  convert the ID that's been
+    # passed across from our template into a
+    # readable format that's acceptable by MongoDB.
 app = Flask(__name__)
 
 
@@ -16,8 +19,8 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-def index():
-    return redirect(url_for("add_task"))
+# def index():
+#     return redirect(url_for("add_task"))
 @app.route('/get_tasks')
 def get_tasks():
     # this aims back at the tasks html and page and the mongo db database
@@ -49,6 +52,21 @@ def insert_task():
     tasks = mongo.db.tasks
     tasks.insert_one(request.form.to_dict())
     return redirect(url_for('get_tasks'))
+# adding function to connect to the edit task button here
+# In order to do do this we need to retrive the task from the data base
+#  we want to find one particular task from our tasks collection
+
+# Where looking for a match the _id the key in mongo
+# We put the tasks_Id parameter in a format that exceptable to mongo
+# we use the mongo db find function to grab categories
+
+
+@app.route('/edit_task/<task_id>')
+def edit_task(task_id):
+    the_task=mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    all_categories=mongo.db.categories.find()
+    return render_template('edit_task.html', task=the_task,
+                           categories=all_categories)
 
 
 if __name__ == '__main__':
