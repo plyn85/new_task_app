@@ -59,10 +59,10 @@
     <div class="row">
       <div class="switch">
         <label>
-          {%If task.is_urgent%}
+          {% if task.is_urgent %}
           <input id="is_urgent" name="is_urgent" type="checkbox" checked />
-          {%else%}
-          <input id="is_urgent" name="is_urgent" type="checkbox" />{%endIf%}
+          {% else %}
+          <input id="is_urgent" name="is_urgent" type="checkbox" />{% endif%}
           <span class="lever"></span>
           Is Urgent
         </label>
@@ -76,4 +76,16 @@
     </div>
   </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  //  the due_date variables are not the same here the first is a local variable an the other is from the date picker input
+  // We're doing this to inject the due date into the form field associated with that date picker.
+  $(document).ready(function() {
+    due_date = Date.parse("{{task.due_date}}");
+    $("#due_date")
+      .pickadate("picker")
+      .set("select", due_date, { format: "dd/mm/yyyy" })
+      .trigger("change");
+  });
+</script>
 {% endblock %}
