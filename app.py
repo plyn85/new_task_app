@@ -19,8 +19,6 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-# def index():
-#     return redirect(url_for("add_task"))
 @app.route('/get_tasks')
 def get_tasks():
     # this aims back at the tasks html and page and the mongo db database
@@ -63,8 +61,8 @@ def insert_task():
 
 @app.route('/edit_task/<task_id>')
 def edit_task(task_id):
-    the_task=mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-    all_categories=mongo.db.categories.find()
+    the_task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    all_categories = mongo.db.categories.find()
     return render_template('edit_task.html', task=the_task,
                            categories=all_categories)
 
