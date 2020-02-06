@@ -1,0 +1,25 @@
+{% extends 'base.html'%} {% block content %}
+
+<div class="row">
+  <h3>Categories</h3>
+  <ul class="collapsible" data-collapsible="accordion">
+    {% for category in categories %}
+    <li>
+      <div class="collapsible-header">
+        <a href="" class="waves-effect waves-light btn btn_small">Del</a>
+        <!-- url_for points to the name of the function not the name of the route -->
+        <a
+          href="{{url_for('edit_category', category_id=category._id)}}"
+          class="waves-effect waves-light btn btn_small blue"
+          >Edit</a
+        >
+
+        <div class="task_header">
+          <strong>{{category.category_name}}</strong>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
