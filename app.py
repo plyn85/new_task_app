@@ -81,6 +81,15 @@ def edit_category(category_id):
     return render_template("edit_category.html",
                            category=mongo.db.categories.find_one({"_id": ObjectId(category_id)}))
 
+# When a user clicks the Edit Category button on the form, the update_category() function will run. This will edit the Category text in the Database
+@app.route('/update_category/<category_id>', methods=['POST'])
+def update_category(category_id):
+    categories = mongo.db.categories
+    categories.update(
+        {'id_': ObjectId(category_id)},
+        {'category_name': request.form.get('category_name')})
+    return redirect(url_for('get_categories'))
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
