@@ -69,6 +69,12 @@ def edit_task(task_id):
     return render_template("edit_task.html", task=the_task, categories=all_categories)
 
 
+@app.route('/delete_task/<task_id>')
+def delete_task(task_id):
+    mongo.db.tasks.remove({'_id': ObjectId(task_id)})
+    return redirect(url_for('get_tasks'))
+
+
 @app.route('/get_categories')
 def get_categories():
 
@@ -82,13 +88,33 @@ def edit_category(category_id):
                            category=mongo.db.categories.find_one({"_id": ObjectId(category_id)}))
 
 # When a user clicks the Edit Category button on the form, the update_category() function will run. This will edit the Category text in the Database
-@app.route('/update_category/<category_id>', methods=['POST'])
+@app.route("/update_category/<category_id>", methods=["POST"])
 def update_category(category_id):
     categories = mongo.db.categories
-    categories.update(
-        {'id_': ObjectId(category_id)},
-        {'category_name': request.form.get('category_name')})
+    categories.update({"_id": ObjectId(category_id)},
+                      {
+        "category_name": request.form.get("category_name")
+    })
+    return redirect(url_for("get_categories"))
+
+
+@app.route('/delete_category/<category_id>')
+def delete_category(category_id):
+    mongo.db.categories.remove({'_id': ObjectId(category_id)})
     return redirect(url_for('get_categories'))
+
+
+@app.route("/insert_category", methods=["POST"])
+def insert_category():
+    categories = mongo.db.categories
+    category_doc = {"category_name": request.form.get("category_name")}
+    categories.insert_one(category_doc)
+    return redirect(url_for("get_categories"))
+
+
+@app.route('/add_category')
+def add_category():
+    return render_template('add_category.html')
 
 
 if __name__ == '__main__':
